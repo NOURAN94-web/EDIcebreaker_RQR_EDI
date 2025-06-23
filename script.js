@@ -49,10 +49,16 @@ function drop(e) {
   if (!panel || panel.classList.contains('filled-panel')) return;
 
   panelCount++;
-  panel.innerHTML = '<div class="panel-number">' + panelCount + '</div>';
+  const numberDiv = document.createElement('div');
+  numberDiv.className = 'panel-number';
+  numberDiv.textContent = panelCount;
+
   const hidden = document.createElement('div');
   hidden.className = 'hidden-question';
   hidden.textContent = dragged.textContent;
+
+  panel.innerHTML = '';
+  panel.appendChild(numberDiv);
   panel.appendChild(hidden);
 
   panel.classList.add('filled-panel', 'highlighted');
@@ -87,10 +93,16 @@ function generateRandomPanels(count) {
     const question = randomQuestions[Math.floor(Math.random() * randomQuestions.length)];
     const panel = document.createElement('div');
     panel.className = 'panel filled-panel highlighted';
-    panel.innerHTML = '<div class="panel-number">' + (i + 1) + '</div>';
+
+    const numberDiv = document.createElement('div');
+    numberDiv.className = 'panel-number';
+    numberDiv.textContent = i + 1;
+
     const hidden = document.createElement('div');
     hidden.className = 'hidden-question';
     hidden.textContent = question;
+
+    panel.appendChild(numberDiv);
     panel.appendChild(hidden);
     panel.onclick = () => {
       panel.innerHTML = question;
@@ -106,15 +118,24 @@ function toggleSubmitPanel() {
   form.style.display = form.style.display === 'none' ? 'block' : 'none';
 }
 
-// Add missing style for .hidden-question for safety
+// Add styling for centered number and hidden question
 const styleTag = document.createElement("style");
 styleTag.innerHTML = `
   .hidden-question {
     visibility: hidden;
   }
-  .panel.highlighted .panel-number {
+  .panel-number {
+    font-size: 1.5em;
     font-weight: bold;
-    font-size: 1.4em;
+    text-align: center;
+    margin: auto;
+    padding: 20px 0;
+  }
+  .panel {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
 `;
 document.head.appendChild(styleTag);
