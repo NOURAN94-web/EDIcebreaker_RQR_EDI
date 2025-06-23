@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EDIcebreaker Tool</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      background-color: white;
+    }
+  </style>
+</head>
+<body>
+  <header style="text-align:center; margin-bottom: 30px;">
+    <img src="EDIcebreaker logo.jpg" alt="EDIcebreaker Logo" style="max-width: 300px; height: auto;">
+  </header>
+
+  <div class="panels">
+    <h2 style="text-align:center;">New Session</h2>
+    <div id="question-panels" class="panel-container"></div>
+    <button onclick="addPanel()">Add Panel</button>
+    <button onclick="resetPanels()">Reset Panels</button>
+    <div style="text-align: center; margin-top: 20px;">
+      <label for="panel-count">Choose number of random panels:</label>
+      <select id="panel-count" onchange="generateRandomPanels(this.value)">
+        <option value="">Select</option>
+        <option value="2">2 Panels</option>
+        <option value="4">4 Panels</option>
+        <option value="6">6 Panels</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="categories" style="margin-top: 60px;">
+    <h2><strong>Multibank</strong></h2>
+    <select id="category-select" onchange="loadCategory()">
+      <option value=""><strong>Select a category</strong></option>
+      <option value="individual" class="category-frame individual-frame">🟣 Individuel / Individual</option>
+      <option value="culture" class="category-frame culture-frame">🟡 Culture et tradition / Culture and tradition</option>
+      <option value="food" class="category-frame food-frame">🟢 Nourriture et nature / Food and nature</option>
+      <option value="society" class="category-frame society-frame">🔴 Société et loi / Society and law</option>
+      <option value="academic" class="category-frame academic-frame">🔵 Académique et économie / Academics and economy</option>
+      <option value="random" class="category-frame neutral-frame">⚪ Random categories</option>
+    </select>
+    <div id="question-list" class="question-list"></div>
+  </div>
+
+  <footer style="text-align:center; margin-top: 40px; font-size: 0.9em; color: #777;">
+    <p>This tool is licensed under the <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">Creative Commons Attribution-NonCommercial 4.0 International License</a>.</p>
+  </footer>
+
+  <script src="script.js"></script>
+  <script src="questions.js"></script>
+</body>
+</html>
