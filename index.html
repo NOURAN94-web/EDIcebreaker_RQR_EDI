@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -46,11 +47,48 @@
     <div id="question-list" class="question-list"></div>
   </div>
 
+  <div style="text-align:center; margin-top: 60px;">
+    <button onclick="toggleSubmitPanel()" style="font-size: 1.1em;">➕ Submit a New Question for Approval</button>
+  </div>
+
+  <div id="submit-question-form-container" style="display:none; margin-top: 30px;">
+    <form id="submit-question-form" onsubmit="submitQuestionForm(event)">
+      <h3>Submit a New Question</h3>
+      <label for="new-question">Question:</label>
+      <textarea id="new-question" rows="4" required></textarea>
+
+      <label for="new-category">Category:</label>
+      <select id="new-category" required>
+        <option value="">Select category</option>
+        <option value="individual">Individuel / Individual</option>
+        <option value="culture">Culture et tradition / Culture and tradition</option>
+        <option value="food">Nourriture et nature / Food and nature</option>
+        <option value="society">Société et loi / Society and law</option>
+        <option value="academic">Académique et économie / Academics and economy</option>
+      </select>
+
+      <button type="submit">Submit for Approval</button>
+      <button type="button" onclick="downloadSubmissions()">Download All Submissions</button>
+      <button type="button" onclick="importApprovedQuestions()">Import Approved Questions</button>
+    </form>
+  </div>
+
+  <div id="review-submissions" style="margin: 40px auto; max-width: 600px;">
+    <h3>Review Submitted Questions</h3>
+    <ul id="submitted-questions-list" style="list-style-type: none; padding: 0;"></ul>
+  </div>
+
   <footer style="text-align:center; margin-top: 40px; font-size: 0.9em; color: #777;">
     <p>This tool is licensed under the <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">Creative Commons Attribution-NonCommercial 4.0 International License</a>.</p>
   </footer>
 
   <script src="script.js"></script>
   <script src="questions.js"></script>
+  <script>
+    function toggleSubmitPanel() {
+      const form = document.getElementById('submit-question-form-container');
+      form.style.display = form.style.display === 'none' ? 'block' : 'none';
+    }
+  </script>
 </body>
 </html>
