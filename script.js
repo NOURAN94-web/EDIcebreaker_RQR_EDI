@@ -118,7 +118,6 @@ function toggleSubmitPanel() {
   form.style.display = form.style.display === 'none' ? 'block' : 'none';
 }
 
-// Add styling for centered number and hidden question
 const styleTag = document.createElement("style");
 styleTag.innerHTML = `
   .hidden-question {
@@ -127,9 +126,10 @@ styleTag.innerHTML = `
   .panel-number {
     font-size: 1.5em;
     font-weight: bold;
-    text-align: center;
-    margin: auto;
-    padding: 20px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
   }
   .panel {
     display: flex;
