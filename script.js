@@ -46,16 +46,21 @@ function drop(e) {
   const dragged = document.getElementById(id);
   const panel = e.target;
 
-  panel.classList.add('filled-panel');
+  if (!panel.classList.contains('panel')) return;
+
   panelCount++;
-  panel.setAttribute('data-panel-id', panelCount);
-  panel.innerHTML = '<strong>' + panelCount + '</strong><br><span class="hidden-question">' + dragged.textContent + '</span>';
+  panel.innerHTML = '<div class="panel-number">' + panelCount + '</div>';
+  const questionDiv = document.createElement('div');
+  questionDiv.className = 'hidden-question';
+  questionDiv.textContent = dragged.textContent;
+  panel.appendChild(questionDiv);
+
+  panel.classList.add('filled-panel', 'highlighted');
   panel.onclick = () => {
     panel.innerHTML = dragged.textContent;
     panel.classList.remove('highlighted');
     panel.onclick = null;
   };
-  panel.classList.add('highlighted');
 }
 
 function addPanel() {
@@ -81,14 +86,17 @@ function generateRandomPanels(count) {
   for (let i = 0; i < count; i++) {
     const question = randomQuestions[Math.floor(Math.random() * randomQuestions.length)];
     const panel = document.createElement('div');
-    panel.className = 'panel filled-panel';
-    panel.innerHTML = '<strong>' + (i + 1) + '</strong><br><span class="hidden-question">' + question + '</span>';
+    panel.className = 'panel filled-panel highlighted';
+    panel.innerHTML = '<div class="panel-number">' + (i + 1) + '</div>';
+    const qDiv = document.createElement('div');
+    qDiv.className = 'hidden-question';
+    qDiv.textContent = question;
+    panel.appendChild(qDiv);
     panel.onclick = () => {
       panel.innerHTML = question;
       panel.classList.remove('highlighted');
       panel.onclick = null;
     };
-    panel.classList.add('highlighted');
     document.getElementById('question-panels').appendChild(panel);
   }
 }
