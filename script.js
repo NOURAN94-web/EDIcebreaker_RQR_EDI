@@ -44,16 +44,16 @@ function drop(e) {
   e.preventDefault();
   const id = e.dataTransfer.getData('text/plain');
   const dragged = document.getElementById(id);
-  const panel = e.target;
+  const panel = e.target.closest('.panel');
 
-  if (!panel.classList.contains('panel')) return;
+  if (!panel || panel.classList.contains('filled-panel')) return;
 
   panelCount++;
   panel.innerHTML = '<div class="panel-number">' + panelCount + '</div>';
-  const questionDiv = document.createElement('div');
-  questionDiv.className = 'hidden-question';
-  questionDiv.textContent = dragged.textContent;
-  panel.appendChild(questionDiv);
+  const hidden = document.createElement('div');
+  hidden.className = 'hidden-question';
+  hidden.textContent = dragged.textContent;
+  panel.appendChild(hidden);
 
   panel.classList.add('filled-panel', 'highlighted');
   panel.onclick = () => {
@@ -88,10 +88,10 @@ function generateRandomPanels(count) {
     const panel = document.createElement('div');
     panel.className = 'panel filled-panel highlighted';
     panel.innerHTML = '<div class="panel-number">' + (i + 1) + '</div>';
-    const qDiv = document.createElement('div');
-    qDiv.className = 'hidden-question';
-    qDiv.textContent = question;
-    panel.appendChild(qDiv);
+    const hidden = document.createElement('div');
+    hidden.className = 'hidden-question';
+    hidden.textContent = question;
+    panel.appendChild(hidden);
     panel.onclick = () => {
       panel.innerHTML = question;
       panel.classList.remove('highlighted');
@@ -105,3 +105,16 @@ function toggleSubmitPanel() {
   const form = document.getElementById('submit-question-form-container');
   form.style.display = form.style.display === 'none' ? 'block' : 'none';
 }
+
+// Add missing style for .hidden-question for safety
+const styleTag = document.createElement("style");
+styleTag.innerHTML = `
+  .hidden-question {
+    visibility: hidden;
+  }
+  .panel.highlighted .panel-number {
+    font-weight: bold;
+    font-size: 1.4em;
+  }
+`;
+document.head.appendChild(styleTag);
